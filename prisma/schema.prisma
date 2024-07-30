@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model team{
+  id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  teamName String @db.VarChar(100) @unique
+  totalPlayed Int
+  win Int
+  loss Int
+  achiveRun Int
+  givingRun Int
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  player player []
+}
+model player{
+  id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  teamId BigInt @db.UnsignedBigInt
+  team team @relation(fields: [teamId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  name String @db.VarChar(100)
+  roll String @db.VarChar(100)
+  battingStyle String @db.VarChar(100)
+  ballingStyle String @db.VarChar(100)
+  totalRun Int
+  totalUseBall Int
+  hRun Int
+  totalBaliing Int
+  totalWicket Int
+  economy Int
+  evarage Int
+  bbi String @db.VarChar(100)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  indevisualPlayingRecords indevisualPlayingRecords []
+}
+
+model schedule{
+  id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  teamNameVs String @db.VarChar(100)///
+  vsTeamName String @db.VarChar(100)///
+  venue String @db.VarChar(100)
+  toss Boolean @default(false)
+  tossWinTeam String @db.VarChar(100)///
+  chooseTo String @db.VarChar(100)
+  matchNo Int @unique
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  indevisualPlayingRecords indevisualPlayingRecords []
+}
+
+model indevisualPlayingRecords{
+  id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  playerName String @db.VarChar(100)
+  scheduleId BigInt @db.UnsignedBigInt///
+  schedule schedule @relation(fields: [scheduleId], references: [id],onDelete: Restrict,onUpdate: Cascade)
+  playerId BigInt @db.UnsignedBigInt
+  player player @relation(fields: [playerId], references: [id],onDelete: Restrict,onUpdate: Cascade)
+  onCrease Boolean @default(false)
+  onStricke Boolean @default(false)
+  playedBall Int @default(0)
+  totalRun Int @default(0)
+  onBalling Boolean @default(false)
+  totalBall Int @default(0)
+  considRunToday Int @default(0)
+  playerRunToday Int @default(0)
+  playedBallToday Int @default(0)
+  wicketToday Int @default(0)
+  ballingToday Int @default(0)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}
