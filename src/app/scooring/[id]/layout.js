@@ -5,14 +5,16 @@ export const metadata = {
 };
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/schedule");
+  const res = await fetch("http://localhost:3000/api/schedule", {
+    cache: "no-store",
+  });
   const data = await res.json();
   return data;
 };
 
 export default async function layout({ children, params }) {
   const scheules = await getData();
-  const schedule = scheules.data.filter((sdl) => sdl.id == params.id);
+  const schedule = scheules?.data?.filter((sdl) => sdl.id == params.id);
   const { teamNameVs, vsTeamName, tossWinTeam, chooseTo, matchNo } =
     schedule[0];
   return (

@@ -4,7 +4,9 @@ import Link from "next/link";
 import React from "react";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/schedule");
+  const res = await fetch("http://localhost:3000/api/schedule", {
+    cache: "no-store",
+  });
   const data = await res.json();
   return data;
 };
@@ -18,9 +20,7 @@ export default async function page() {
         <h1 className="text-3xl font-bold text-center">Schedule</h1>
       </div>
       <div>
-        <div>
-          <DateTimeChecker />
-        </div>
+        <div></div>
         <div className="flex flex-wrap">
           {schedules.data?.map((schedule) => {
             return <Schedules key={schedule.id} schedule={schedule} />;

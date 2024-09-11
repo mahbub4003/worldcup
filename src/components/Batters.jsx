@@ -5,7 +5,9 @@ export default function BattingOnCrease({ player }) {
   return (
     <tr key={player.id} className="border-collapse border border-slate-900">
       <td className="p-2 sm:p-3">
-        <Link href={`/playersProfile/${player.playerId}`}>{player.name}</Link>
+        <Link href={`/playersProfile/${player.playerId}`}>
+          {player.playerName}
+        </Link>
       </td>
       <td>Batting</td>
       <td className="p-2 sm:p-3">{player.totalRun}</td>

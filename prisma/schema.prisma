@@ -24,6 +24,7 @@ model team{
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
   player player []
+  indevisualPlayingRecords indevisualPlayingRecords []
 }
 model player{
   id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
@@ -34,10 +35,13 @@ model player{
   battingStyle String @db.VarChar(100)
   ballingStyle String @db.VarChar(100)
   totalRun Int
+  four Int
+  six Int
   totalUseBall Int
   hRun Int
   totalBaliing Int
   totalWicket Int
+  fiveWicket Int
   economy Int
   evarage Int
   bbi String @db.VarChar(100)
@@ -54,7 +58,9 @@ model schedule{
   toss Boolean @default(false)
   tossWinTeam String @db.VarChar(100)///
   chooseTo String @db.VarChar(100)
-  matchNo Int @unique
+  shirisName String @db.VarChar(100)
+  matchNo Int
+  date String
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
   indevisualPlayingRecords indevisualPlayingRecords []
@@ -65,12 +71,16 @@ model indevisualPlayingRecords{
   playerName String @db.VarChar(100)
   scheduleId BigInt @db.UnsignedBigInt///
   schedule schedule @relation(fields: [scheduleId], references: [id],onDelete: Restrict,onUpdate: Cascade)
-  playerId BigInt @db.UnsignedBigInt
+  playerId BigInt @db.UnsignedBigInt @unique
   player player @relation(fields: [playerId], references: [id],onDelete: Restrict,onUpdate: Cascade)
+   teamId BigInt @db.UnsignedBigInt
+  team team @relation(fields: [teamId], references: [id],onDelete: Restrict,onUpdate: Cascade)
   onCrease Boolean @default(false)
   onStricke Boolean @default(false)
   playedBall Int @default(0)
   totalRun Int @default(0)
+  four Int
+  six Int
   onBalling Boolean @default(false)
   totalBall Int @default(0)
   considRunToday Int @default(0)
@@ -81,3 +91,7 @@ model indevisualPlayingRecords{
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
 }
+model series{
+  id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  name String @db.VarChar(100)
+}       

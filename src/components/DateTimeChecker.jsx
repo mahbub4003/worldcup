@@ -36,7 +36,7 @@ export default function DateTimeChecker() {
     "Friday",
     "Saturday",
   ];
-
+  console.log("des", desiredFormat);
   return (
     <div>
       <form onSubmit={submitHandler}>

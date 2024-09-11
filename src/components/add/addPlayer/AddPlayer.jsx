@@ -12,6 +12,9 @@ export default function AddPlayer() {
   const [roll, setRoll] = useState("");
   // Below Hooks  initialy 0 run m/b........
   const [totalRun, setTotalRun] = useState(0);
+  const [four, setFoue] = useState(0);
+  const [six, setSix] = useState(0);
+  const [fiveWicket, setFiveWicket] = useState(0);
   const [totalUseBall, setTotalUseBall] = useState(0);
   const [hRun, setHRun] = useState(0);
   const [totalBaliing, SETtotalBaliing] = useState(0);
@@ -46,6 +49,9 @@ export default function AddPlayer() {
         economy,
         evarage,
         bbi,
+        four,
+        six,
+        fiveWicket,
       })
     );
     setPlayersName("");

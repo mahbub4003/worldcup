@@ -86,6 +86,18 @@ export default async function players({ params }) {
               </td>
             </tr>
             <tr>
+              <td className="border border-slate-400 p-5">Four</td>
+              <td className="border border-slate-400 p-5">
+                {selectedPlayerProfile?.four}
+              </td>
+            </tr>
+            <tr>
+              <td className="border border-slate-400 p-5">Six</td>
+              <td className="border border-slate-400 p-5">
+                {selectedPlayerProfile?.six}
+              </td>
+            </tr>
+            <tr>
               <td className="border border-slate-400 p-5">Ball</td>
               <td className="border border-slate-400 p-5">
                 {selectedPlayerProfile?.totalUseBall}
@@ -113,6 +125,12 @@ export default async function players({ params }) {
               <td className="border border-slate-400 p-5">Wicket</td>
               <td className="border border-slate-400 p-5">
                 {selectedPlayerProfile?.totalWicket}
+              </td>
+            </tr>
+            <tr>
+              <td className="border border-slate-400 p-5">Five Wicket</td>
+              <td className="border border-slate-400 p-5">
+                {selectedPlayerProfile?.fiveWicket}
               </td>
             </tr>
             <tr>

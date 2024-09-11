@@ -3,7 +3,9 @@ import Schedules from "@/components/Schedules";
 import Link from "next/link";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/schedule");
+  const res = await fetch("http://localhost:3000/api/schedule", {
+    cache: "no-store",
+  });
   const data = await res.json();
   return data;
 };

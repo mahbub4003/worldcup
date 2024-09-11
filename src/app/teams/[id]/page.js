@@ -34,7 +34,7 @@ export default async function page({ params }) {
           {singleTeam.length == 1 && singleTeam[0].teamName}
         </h1>
       </div>
-      <div className="w-[30%] m-auto">
+      <div className="sm:w-[30%] m-auto">
         <ul className=" inline-block w-[100%] text-center font-bold text-gray-500 text-2xl ">
           {filteredPlayers.length > 0 ? (
             filteredPlayers.map((player, index) => {

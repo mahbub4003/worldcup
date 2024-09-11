@@ -12,7 +12,7 @@ const getData = async () => {
 
 export default async function page({ params }) {
   const players = await getData();
-
+  console.log(players);
   return (
     <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded">
       <div>
@@ -51,7 +51,7 @@ export default async function page({ params }) {
                   <th className="p-1 sm:p-3">Strike Rate</th>
                 </tr>
 
-                {players.data
+                {players?.data
                   .filter((player) => player.scheduleId == params.id)
                   .map((player) => {
                     return (
