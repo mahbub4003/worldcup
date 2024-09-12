@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import postData from "./addTeamUtility";
 
-export default function AddTeam({ header }) {
+export default function AddTeam() {
   const [teamName, setTeamName] = useState("");
   const [totalPlayed, setTotalPlayed] = useState(0);
   const [win, setwin] = useState(0);
@@ -13,7 +13,6 @@ export default function AddTeam({ header }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(header);
     postData(
       JSON.stringify({
         teamName,

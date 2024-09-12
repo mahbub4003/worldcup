@@ -71,7 +71,7 @@ model indevisualPlayingRecords{
   playerName String @db.VarChar(100)
   scheduleId BigInt @db.UnsignedBigInt///
   schedule schedule @relation(fields: [scheduleId], references: [id],onDelete: Restrict,onUpdate: Cascade)
-  playerId BigInt @db.UnsignedBigInt @unique
+  playerId BigInt @db.UnsignedBigInt
   player player @relation(fields: [playerId], references: [id],onDelete: Restrict,onUpdate: Cascade)
    teamId BigInt @db.UnsignedBigInt
   team team @relation(fields: [teamId], references: [id],onDelete: Restrict,onUpdate: Cascade)
@@ -79,8 +79,8 @@ model indevisualPlayingRecords{
   onStricke Boolean @default(false)
   playedBall Int @default(0)
   totalRun Int @default(0)
-  four Int
-  six Int
+  four Int @default(0)
+  six Int @default(0)
   onBalling Boolean @default(false)
   totalBall Int @default(0)
   considRunToday Int @default(0)

@@ -13,7 +13,6 @@ const getData = async () => {
 
 export default async function page() {
   const schedules = await getData();
-  console.log("mmmm", new Date().toDateString());
   return (
     <div>
       <div className="underline underline-offset-8">

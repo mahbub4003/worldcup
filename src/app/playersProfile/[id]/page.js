@@ -32,7 +32,6 @@ export default async function players({ params }) {
   const singleTeam = teamList.data.filter(
     (team) => team.id == selectedPlayerProfile?.teamId
   )[0];
-  console.log(params);
   return (
     <div className="bg-gray-300 p-5 w-[80%] m-auto mt-5">
       <div>

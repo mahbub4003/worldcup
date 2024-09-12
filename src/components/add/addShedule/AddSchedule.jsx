@@ -27,7 +27,6 @@ export default function AddTeam({ header }) {
     },
     []
   );
-  console.log(date);
   const no = parseInt(matchNo);
   const submitHandler = (e) => {
     e.preventDefault();

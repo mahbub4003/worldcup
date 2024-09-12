@@ -6,6 +6,7 @@ import {
   getschedule,
   getPlayers,
   getTeams,
+  getPlayersIndevisualGameInfo,
 } from "./addPlayersIndevisualUtility";
 
 export default function addPlayersIndevisualGame({ id }) {
@@ -19,8 +20,9 @@ export default function addPlayersIndevisualGame({ id }) {
   const [vsTeamId, setVsTeamId] = useState(0);
   const [teamIdVs, setTeamIdVs] = useState(0);
   const [filteredSchedule, setFilteredSchedule] = useState([]);
-  const [teamNameVs, setTeamNameVs] = useState("");
-  const [VsTeamName, setVsTeamName] = useState("");
+  const [gamePlayers, setGamePlayers] = useState([]);
+  const [playerAddError, setPlayerAddError] = useState(false);
+  const [playerAddSuccess, setPlayerAddSuccess] = useState(false);
 
   // Below Hooks  initialy 0 run m/b........
   const [four, setFoue] = useState(0);
@@ -44,9 +46,13 @@ export default function addPlayersIndevisualGame({ id }) {
       // // get players List
       const players = await getPlayers();
       setAllPlayersData(players);
+
+      const getPlayersIndevisualGameInfoData =
+        await getPlayersIndevisualGameInfo();
+      setGamePlayers(getPlayersIndevisualGameInfoData.data);
     },
 
-    [teamId, teamIdVs, teamNameVs, vsTeamId, VsTeamName]
+    []
   );
 
   // // single team name start from here***
@@ -72,28 +78,33 @@ export default function addPlayersIndevisualGame({ id }) {
     (player) => player.name == playerName
   )[0];
 
-  console.log(platersId && platersId);
-
   // // filter players id end from here***
-
+  const filteredTeamId = gamePlayers
+    ?.filter((plr) => plr.scheduleId == id)
+    .filter((plr2) => plr2.playerId == platersId?.id);
   //submit Handler start here****
   const submitHandler = (e) => {
     e.preventDefault();
 
-    addPlayersIndevisualGameInfo(
-      JSON.stringify({
-        playerName,
-        teamId,
-        scheduleId: id,
-        playerId: platersId && platersId.id,
-        four,
-        six,
-      })
-    );
-    setplayerName("");
+    if (filteredTeamId.length > 0) {
+      setPlayerAddError(true);
+    } else {
+      addPlayersIndevisualGameInfo(
+        JSON.stringify({
+          playerName,
+          teamId,
+          scheduleId: id,
+          playerId: platersId && platersId.id,
+          four,
+          six,
+        })
+      );
+      setplayerName("");
+      setPlayerAddError(false);
+      setPlayerAddSuccess(true);
+    }
   };
-
-  // const [teamNameVs, VsTeamName] = filteredSchedule[0]
+  console.log(filteredTeamId.length);
 
   return (
     <div>
@@ -168,6 +179,8 @@ export default function addPlayersIndevisualGame({ id }) {
             value={"Add Player"}
           />
         </div>
+        {playerAddError && <p>This Player allready exist</p>}
+        {playerAddSuccess && <p>This Player add success</p>}
       </form>
     </div>
   );

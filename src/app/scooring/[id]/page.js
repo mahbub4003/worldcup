@@ -12,7 +12,6 @@ const getData = async () => {
 
 export default async function page({ params }) {
   const players = await getData();
-  console.log(players);
   return (
     <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded">
       <div>
