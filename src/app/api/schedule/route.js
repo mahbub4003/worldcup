@@ -31,8 +31,9 @@ export async function PATCH(req, res) {
   };
   const searchParams = req.nextUrl.searchParams;
   const id = searchParams.get("id");
+  const reqBody = await req.json();
+
   try {
-    const reqBody = await req.json();
     const result = await prisma.schedule.update({
       where: { id: parseInt(id) },
       data: {

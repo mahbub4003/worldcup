@@ -58,8 +58,12 @@ model schedule{
   toss Boolean @default(false)
   tossWinTeam String @db.VarChar(100)///
   chooseTo String @db.VarChar(100)
+  batFirst String @db.VarChar(100) @default("")
+  ballFirst String @db.VarChar(100) @default("")
   shirisName String @db.VarChar(100)
   matchNo Int
+  overFirstBallTeam Int @default(0)
+  overSecondBallTeam Int @default(0)
   date String
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)

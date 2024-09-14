@@ -12,13 +12,9 @@ import {
 export default function addPlayersIndevisualGame({ id }) {
   const [playerName, setplayerName] = useState("");
   const [allPlayersData, setAllPlayersData] = useState([]);
-  const [schedule, setSchedule] = useState();
   const [teams, setTeams] = useState([]);
   const [scheduleId, setScheduleId] = useState(id);
-  const [playerId, setPlayerId] = useState(0);
   const [teamId, setTeamId] = useState(0);
-  const [vsTeamId, setVsTeamId] = useState(0);
-  const [teamIdVs, setTeamIdVs] = useState(0);
   const [filteredSchedule, setFilteredSchedule] = useState([]);
   const [gamePlayers, setGamePlayers] = useState([]);
   const [playerAddError, setPlayerAddError] = useState(false);
@@ -31,7 +27,6 @@ export default function addPlayersIndevisualGame({ id }) {
   useEffect(
     () => async () => {
       const scheduleData = await getschedule();
-      setSchedule(scheduleData);
 
       // // filter schedule******
       const filteredSingleSchedule = scheduleData.data?.filter(
@@ -52,7 +47,7 @@ export default function addPlayersIndevisualGame({ id }) {
       setGamePlayers(getPlayersIndevisualGameInfoData.data);
     },
 
-    []
+    [playerName]
   );
 
   // // single team name start from here***
@@ -88,6 +83,8 @@ export default function addPlayersIndevisualGame({ id }) {
 
     if (filteredTeamId.length > 0) {
       setPlayerAddError(true);
+      setPlayerAddSuccess(false);
+      setplayerName("");
     } else {
       addPlayersIndevisualGameInfo(
         JSON.stringify({
@@ -179,8 +176,12 @@ export default function addPlayersIndevisualGame({ id }) {
             value={"Add Player"}
           />
         </div>
-        {playerAddError && <p>This Player allready exist</p>}
-        {playerAddSuccess && <p>This Player add success</p>}
+        {playerAddError && (
+          <p className="text-red-600">This Player allready exist</p>
+        )}
+        {playerAddSuccess && (
+          <p className="text-green-600">This Player add success</p>
+        )}
       </form>
     </div>
   );

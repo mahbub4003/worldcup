@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `schedule` ADD COLUMN `ballFirst` VARCHAR(100) NOT NULL DEFAULT '',
+    ADD COLUMN `batFirst` VARCHAR(100) NOT NULL DEFAULT '';
