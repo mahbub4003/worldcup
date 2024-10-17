@@ -53,7 +53,9 @@ model player{
 model schedule{
   id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
   teamNameVs String @db.VarChar(100)///
+  batFirstTeamId Int///
   vsTeamName String @db.VarChar(100)///
+  batSecondTeamId Int///
   venue String @db.VarChar(100)
   toss Boolean @default(false)
   tossWinTeam String @db.VarChar(100)///
@@ -65,6 +67,7 @@ model schedule{
   overFirstBallTeam Int @default(0)
   overSecondBallTeam Int @default(0)
   date String
+  innings String @default("first")
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
   indevisualPlayingRecords indevisualPlayingRecords []
@@ -92,6 +95,8 @@ model indevisualPlayingRecords{
   playedBallToday Int @default(0)
   wicketToday Int @default(0)
   ballingToday Int @default(0)
+  batting Boolean @default(false)
+  balling Boolean @default(false)
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
 }

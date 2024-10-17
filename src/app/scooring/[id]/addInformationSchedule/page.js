@@ -10,7 +10,11 @@ export default function page({ params }) {
           </Link>
         </div>
         <div className="flex-1">
-          <Link href={"/add/addPlayer"}>Add Player</Link>
+          <Link
+            href={`/scooring/${params.id}/addInformationSchedule/addBallerOrBatter`}
+          >
+            Add Batter Or Baller
+          </Link>
         </div>
         <div className="flex-1">
           <Link href={"/add/addSchedule"}>Add Schedule</Link>

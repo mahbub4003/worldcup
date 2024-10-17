@@ -20,43 +20,10 @@ export default function Toss({ params }) {
     },
     [chooseTo, tossLossTeam, tossWinTeam]
   );
-  // console.log(batFirst);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if ((ballFirst == batFirst) & (ballFirst != "")) {
-      setError(true);
-      setSuccess(false);
-    } else {
-      postData({
-        data: JSON.stringify({
-          toss: true,
-          tossWinTeam,
-          chooseTo,
-          ballFirst,
-          batFirst,
-        }),
-        id: params.id,
-      });
-      setError(false);
-      setSuccess(true);
-    }
-  };
 
   const singleSchedule =
     schedule && schedule.data?.filter((sdl) => sdl.id == params.id)[0];
-
   let bat;
-  // if (chooseTo == "" || tossLossTeam == "" || tossWinTeam == "") {
-  //   bat = "";
-  // } else {
-  //   bat =
-  //     tossWinTeam == singleSchedule?.teamNameVs &&
-  //     chooseTo == "Bat" &&
-  //     tossLossTeam == singleSchedule?.vsTeamName
-  //       ? singleSchedule?.teamNameVs
-  //       : singleSchedule?.vsTeamName;
-  // }
   let ball;
 
   if (tossWinTeam == singleSchedule?.teamNameVs && chooseTo == "Filding") {
@@ -75,6 +42,27 @@ export default function Toss({ params }) {
     bat = singleSchedule?.teamNameVs;
     ball = singleSchedule?.vsTeamName;
   }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if ((ballFirst == batFirst) & (ballFirst != "")) {
+      setError(true);
+      setSuccess(false);
+    } else {
+      postData({
+        data: JSON.stringify({
+          toss: true,
+          tossWinTeam,
+          chooseTo,
+          ballFirst: ball,
+          batFirst: bat,
+        }),
+        id: params.id,
+      });
+      setError(false);
+      setSuccess(true);
+    }
+  };
 
   return (
     <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded">

@@ -36,7 +36,6 @@ export default function Schedules({ schedule }) {
     "Saturday",
   ];
 
-  console.log(toss);
   return (
     <div className=" md:w-[32%] w-[30%] m-1 bg-slate-300 md:p-5 p-1 border-solid border-2 border-white ">
       <Link href={`/scooring/${id}`}>

@@ -21,8 +21,8 @@ export default async function layout({ children, params }) {
     <html className="bg-gray-400" lang="en">
       <body className="m-3">
         <div className="mb-4">
-          <nav className="sm:w-[80%] w-[100%] ">
-            <ul className="flex sm:w-[20%] w-[70%] space-x-16 m-auto text-center">
+          <nav className="w-[80%] m-auto sm:m-0  ">
+            <ul className="flex sm:w-[30%] w-[70%] sm:space-x-16 space-x-6 m-auto text-center">
               <li>
                 <Link href={`/scooring/${params.id}`}>LIVE</Link>
               </li>

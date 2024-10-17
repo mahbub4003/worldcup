@@ -10,8 +10,39 @@ const getData = async () => {
   return data;
 };
 
+const getSchedule = async () => {
+  const res = await fetch("http://localhost:3000/api/schedule", {
+    cache: "no-store",
+  });
+  const data = await res.json();
+  return data;
+};
+
+const getTeam = async () => {
+  const res = await fetch("http://localhost:3000/api/teamList", {
+    cache: "no-store",
+  });
+  const data = await res.json();
+  return data;
+};
+
 export default async function page({ params }) {
   const players = await getData();
+  const schedules = await getSchedule();
+  const schedule = schedules.data?.filter((schdl) => schdl.id == params.id)[0];
+  const { toss, tossWinTeam, chooseTo, batFirst, ballFirst, innings } =
+    schedule;
+  const findBatterTeamName = innings == "first" ? batFirst : ballFirst;
+  const findBallerTeam = innings == "second" ? ballFirst : batFirst;
+  const allTeam = await getTeam();
+  const baterTeam = allTeam.data?.filter(
+    (team) => team.teamName == findBatterTeamName
+  )[0];
+
+  const ballFirstTeam = allTeam.data?.filter(
+    (team) => team.teamName != findBatterTeamName
+  )[0];
+
   return (
     <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded">
       <div className="flex">
@@ -34,7 +65,12 @@ export default async function page({ params }) {
           </table>
         </div>
       </div>
-      <p className="underline">***Bangladesh Won the toss and desided to Bat</p>
+      {toss && (
+        <p className="underline">
+          {innings == "first" &&
+            `***${tossWinTeam} Won the toss and desided to ${chooseTo}`}
+        </p>
+      )}
       <div>
         <h2 className="underline">Batting....</h2>
         <table className="w-[100%] text-center">
@@ -49,17 +85,20 @@ export default async function page({ params }) {
               <th className="p-1 sm:p-3">Strike Rate</th>
             </tr>
 
-            {players?.data
-              .filter((player) => player.scheduleId == params.id)
-              .map((player) => {
-                return (
-                  <BattingOnCrease
-                    key={player.id}
-                    player={player}
-                    scheduleId={params}
-                  />
-                );
-              })}
+            {toss &&
+              players?.data
+                .filter((player) => player.scheduleId == params.id)
+                .filter((player) => player.teamId == baterTeam.id)
+                .filter((plr) => plr.onCrease == true)
+                .map((player) => {
+                  return (
+                    <BattingOnCrease
+                      key={player.id}
+                      player={player}
+                      scheduleId={params}
+                    />
+                  );
+                })}
           </tbody>
         </table>
       </div>
