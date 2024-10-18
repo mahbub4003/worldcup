@@ -33,6 +33,9 @@ export default function Toss({ params }) {
   const singleSchedule =
     schedule && schedule.data?.filter((sdl) => sdl.id == params.id)[0];
 
+  const stringInnings =
+    singleSchedule && JSON.stringify(singleSchedule?.batFirstTeamId);
+
   const playersListForSingaleTeam =
     playersInfoForSingaleInings &&
     playersInfoForSingaleInings
@@ -40,14 +43,32 @@ export default function Toss({ params }) {
       .filter((plr) => plr.teamId == activeTeamId);
 
   let filteredPlayersListForSingaleTeam;
-  if (activeTeamId == singleSchedule?.batFirstTeamId) {
+  if (
+    activeTeamId == singleSchedule?.batFirstTeamId &&
+    innings == stringInnings
+  ) {
     filteredPlayersListForSingaleTeam =
       playersListForSingaleTeam &&
       playersListForSingaleTeam?.filter((plr) => plr.batting != true);
-  } else if (activeTeamId == singleSchedule?.batSecondTeamId) {
+  } else if (
+    activeTeamId == singleSchedule?.batFirstTeamId &&
+    innings != stringInnings
+  ) {
+    filteredPlayersListForSingaleTeam =
+      playersListForSingaleTeam && playersListForSingaleTeam;
+  } else if (
+    activeTeamId == singleSchedule?.batSecondTeamId &&
+    innings == stringInnings
+  ) {
+    filteredPlayersListForSingaleTeam =
+      playersListForSingaleTeam && playersListForSingaleTeam;
+  } else if (
+    activeTeamId == singleSchedule?.batSecondTeamId &&
+    innings != stringInnings
+  ) {
     filteredPlayersListForSingaleTeam =
       playersListForSingaleTeam &&
-      playersListForSingaleTeam?.filter((plr) => plr.balling != true);
+      playersListForSingaleTeam?.filter((plr) => plr.batting != true);
   }
 
   const filteredPlayer =
@@ -72,7 +93,10 @@ export default function Toss({ params }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (activeTeamId == singleSchedule?.batFirstTeamId) {
+    if (
+      activeTeamId == singleSchedule?.batFirstTeamId &&
+      innings == stringInnings
+    ) {
       if (battersOnCrease.length == 2) {
         setError(true);
       } else {
@@ -92,7 +116,46 @@ export default function Toss({ params }) {
         }
         setError(false);
       }
-    } else if (activeTeamId == singleSchedule?.batSecondTeamId) {
+    } else if (
+      activeTeamId == singleSchedule?.batSecondTeamId &&
+      innings != stringInnings
+    ) {
+      if (battersOnCrease.length == 2) {
+        setError(true);
+      } else {
+        if (battersOnStricke.length == 1) {
+          setStrickerror(true);
+          setSuccess(false);
+        } else {
+          postData({
+            data: JSON.stringify({
+              batting: true,
+              onCrease: true,
+              onStricke: JSON.parse(onStricke),
+            }),
+            id: filteredPlayer?.id,
+          });
+          setStrickerror(false);
+        }
+        setError(false);
+      }
+    } else if (
+      activeTeamId == singleSchedule?.batSecondTeamId &&
+      innings == stringInnings
+    ) {
+      postData({
+        data: JSON.stringify({
+          balling: true,
+        }),
+        id: filteredPlayer?.id,
+      });
+      setError(false);
+      setStrickerror(false);
+      setSuccess(true);
+    } else if (
+      activeTeamId == singleSchedule?.batFirstTeamId &&
+      innings != stringInnings
+    ) {
       postData({
         data: JSON.stringify({
           balling: true,
@@ -114,9 +177,6 @@ export default function Toss({ params }) {
   } else if (activeTeamId == null) {
     buttonValue = "";
   }
-
-  const stringInnings =
-    singleSchedule && JSON.stringify(singleSchedule?.batFirstTeamId);
 
   let playersContent;
   if (
