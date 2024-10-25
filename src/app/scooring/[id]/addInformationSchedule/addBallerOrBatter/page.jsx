@@ -95,12 +95,12 @@ export default function Toss({ params }) {
     e.preventDefault();
     if (
       activeTeamId == singleSchedule?.batFirstTeamId &&
-      innings == stringInnings
+      singleSchedule.innings == "first"
     ) {
       if (battersOnCrease.length == 2) {
         setError(true);
       } else {
-        if (battersOnStricke.length == 1) {
+        if (battersOnStricke.length == 1 && onStricke == "true") {
           setStrickerror(true);
           setSuccess(false);
         } else {
@@ -118,12 +118,12 @@ export default function Toss({ params }) {
       }
     } else if (
       activeTeamId == singleSchedule?.batSecondTeamId &&
-      innings != stringInnings
+      singleSchedule.innings == "second"
     ) {
       if (battersOnCrease.length == 2) {
         setError(true);
       } else {
-        if (battersOnStricke.length == 1) {
+        if (battersOnStricke.length == 1 && onStricke == "true") {
           setStrickerror(true);
           setSuccess(false);
         } else {
@@ -141,11 +141,13 @@ export default function Toss({ params }) {
       }
     } else if (
       activeTeamId == singleSchedule?.batSecondTeamId &&
-      innings == stringInnings
+      singleSchedule.innings == "first"
     ) {
       postData({
         data: JSON.stringify({
           balling: true,
+          onBalling: true,
+          H,
         }),
         id: filteredPlayer?.id,
       });
@@ -154,11 +156,12 @@ export default function Toss({ params }) {
       setSuccess(true);
     } else if (
       activeTeamId == singleSchedule?.batFirstTeamId &&
-      innings != stringInnings
+      singleSchedule.innings == "second"
     ) {
       postData({
         data: JSON.stringify({
           balling: true,
+          onBalling: true,
         }),
         id: filteredPlayer?.id,
       });
@@ -218,8 +221,6 @@ export default function Toss({ params }) {
       </div>
     );
   }
-
-  console.log(innings, activeTeamId, singleSchedule?.batSecondTeamId);
 
   return (
     <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded">
@@ -302,25 +303,7 @@ export default function Toss({ params }) {
           </select>
         </div>
 
-        {
-          /* {singleSchedule?.batFirstTeamId == activeTeamId && (
-          <div className="mb-2">
-            <label className="block"> On Strike**</label>
-
-            <select
-              className="m-1 w-[80%] rounded p-1"
-              value={onStricke}
-              onChange={(e) => setOnStricke(e.target.value)}
-              required
-            >
-              <option value={false}>No Stricke</option>;
-              <option value={true}>Stricke</option>;
-            </select>
-          </div>
-        )} */
-
-          playersContent
-        }
+        {playersContent}
 
         <div className="w-[20%] m-auto">
           {buttonValue && (

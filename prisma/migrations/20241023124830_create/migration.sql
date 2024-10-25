@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `player` ADD COLUMN `TotalConsidRunToday` INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE `schedule` ADD COLUMN `totalRunTeamVs` INTEGER NOT NULL DEFAULT 0,
+    ADD COLUMN `vsTeamTotalRun` INTEGER NOT NULL DEFAULT 0;

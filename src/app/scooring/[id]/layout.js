@@ -33,7 +33,10 @@ export default async function layout({ children, params }) {
                 <Link href={`/scooring/${params.id}/info`}>Info</Link>
               </li>
               <li>
-                <Link href={`/scooring/${params.id}/addInformationSchedule`}>
+                <Link
+                  className="text-sm"
+                  href={`/scooring/${params.id}/addInformationSchedule`}
+                >
                   Add Info
                 </Link>
               </li>

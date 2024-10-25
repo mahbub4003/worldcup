@@ -2,8 +2,6 @@ import Link from "next/link";
 import React from "react";
 
 export default function BallersThisMatch({ player }) {
-  console.log(player);
-
   return (
     <tr className="border-collapse border border-slate-900">
       <td className="p-2 sm:p-3">

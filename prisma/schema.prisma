@@ -40,6 +40,7 @@ model player{
   totalUseBall Int
   hRun Int
   totalBaliing Int
+  TotalConsidRun Int @default(0)
   totalWicket Int
   fiveWicket Int
   economy Int
@@ -54,6 +55,8 @@ model schedule{
   id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
   teamNameVs String @db.VarChar(100)///
   batFirstTeamId Int///
+  totalRunBatFistTeam Int @default(0)
+  totalRunBatSecondTeam Int @default(0)
   vsTeamName String @db.VarChar(100)///
   batSecondTeamId Int///
   venue String @db.VarChar(100)
