@@ -71,7 +71,7 @@ export default async function page({ params }) {
                 .filter((player) => player.teamId == teamNameVsData.id)
                 .map((plr, index) => {
                   return (
-                    <Link href={`/playersProfile/${plr.playerId}`}>
+                    <Link key={plr.id} href={`/playersProfile/${plr.playerId}`}>
                       {" "}
                       <p key={plr.id}>
                         <span>{index + 1}. </span>
@@ -88,7 +88,7 @@ export default async function page({ params }) {
                 .filter((player) => player.teamId == vsTeamNameData.id)
                 .map((plr, index) => {
                   return (
-                    <Link href={`/playersProfile/${plr.playerId}`}>
+                    <Link key={plr.id} href={`/playersProfile/${plr.playerId}`}>
                       <p key={plr.id}>
                         <span>{index + 1}. </span>
                         {plr.playerName}

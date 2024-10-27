@@ -10,49 +10,49 @@ import { useRouter } from "next/navigation";
 
 export default function ReplaceBaller({ ballerTheMatch }) {
   const [status, setStatus] = useState(false);
-  const [players, setPlayers] = useState([]);
+  const [freeHitError, setFreeHitError] = useState(false);
   const [newBallerId, setNewBallerId] = useState("");
   const router = useRouter();
 
-  useEffect(
-    () => async () => {
-      const players = getPlayingProfile();
-      setPlayers(players?.data);
-    },
-    [newBallerId]
-  );
+  useEffect(() => async () => {}, []);
 
-  const { id } = ballerTheMatch.filter((plr) => plr.onBalling == true)[0] || [];
+  const { id, freeHitBall } =
+    ballerTheMatch.filter((plr) => plr.onBalling == true)[0] || [];
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setStatus(false);
-    if (ballerTheMatch.length > 0 && newBallerId != "") {
-      editPlayerInfoTheMatch({
-        data: JSON.stringify({
-          onBalling: false,
-        }),
-        id,
-      });
-      editPlayerInfoTheMatch({
-        data: JSON.stringify({
-          onBalling: true,
-          balling: true,
-        }),
-        id: newBallerId,
-      });
-      setNewBallerId("");
-    } else if (ballerTheMatch.length == 0 && newBallerId != "") {
-      editPlayerInfoTheMatch({
-        data: JSON.stringify({
-          onBalling: true,
-          balling: true,
-        }),
-        id: newBallerId,
-      });
-      setNewBallerId("");
+    if (freeHitBall) {
+      setFreeHitError(true);
+    } else {
+      setFreeHitError(false);
+      setStatus(false);
+      if (ballerTheMatch.length > 0 && newBallerId != "") {
+        editPlayerInfoTheMatch({
+          data: JSON.stringify({
+            onBalling: false,
+          }),
+          id,
+        });
+        editPlayerInfoTheMatch({
+          data: JSON.stringify({
+            onBalling: true,
+            balling: true,
+          }),
+          id: newBallerId,
+        });
+        setNewBallerId("");
+      } else if (ballerTheMatch.length == 0 && newBallerId != "") {
+        editPlayerInfoTheMatch({
+          data: JSON.stringify({
+            onBalling: true,
+            balling: true,
+          }),
+          id: newBallerId,
+        });
+        setNewBallerId("");
+      }
+      router.refresh();
     }
-    router.refresh();
   };
   const buttonHandler = () => {
     setNewBallerId("");
@@ -80,9 +80,17 @@ export default function ReplaceBaller({ ballerTheMatch }) {
               {ballerTheMatch
                 .filter((plr) => plr.onBalling != true)
                 .map((plr) => (
-                  <option value={plr.id}>{plr.playerName}</option>
+                  <option key={plr.id} value={plr.id}>
+                    {plr.playerName}
+                  </option>
                 ))}
             </select>
+            {freeHitError && (
+              <p className="text-red-400">
+                Can&lsquo;t change the baller becouse have free hit ball for
+                active baller. Pls complete the free het Ball..
+              </p>
+            )}
           </div>
 
           <div className="w-[20%] m-auto">

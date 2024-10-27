@@ -9,7 +9,7 @@ import {
   getPlayersIndevisualGameInfo,
 } from "./addPlayersIndevisualUtility";
 
-export default function addPlayersIndevisualGame({ id }) {
+export default function AddPlayersIndevisualGame({ id }) {
   const [playerName, setplayerName] = useState("");
   const [allPlayersData, setAllPlayersData] = useState([]);
   const [teams, setTeams] = useState([]);
@@ -46,8 +46,7 @@ export default function addPlayersIndevisualGame({ id }) {
         await getPlayersIndevisualGameInfo();
       setGamePlayers(getPlayersIndevisualGameInfoData.data);
     },
-
-    [playerName]
+    [playerName, id]
   );
 
   // // single team name start from here***

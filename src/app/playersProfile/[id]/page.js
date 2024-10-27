@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/players", {
     cache: "no-store",
@@ -35,9 +37,12 @@ export default async function players({ params }) {
     <div className="bg-gray-300 p-5 w-[80%] m-auto mt-5">
       <div>
         <div className="w-[10%] m-auto rounded-s-full rounded-e-full bg-slate-400">
-          <img
+          <Image
             className="w-[100%]"
             src="https://upload.wikimedia.org/wikipedia/commons/a/a0/W3Schools_logo.svg"
+            width="100"
+            height="100"
+            alt={selectedPlayerProfile?.name}
           />
         </div>
         <h1 className="text-center text-3xl font-bold m-5">

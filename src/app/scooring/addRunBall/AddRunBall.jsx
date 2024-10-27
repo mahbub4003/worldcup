@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  editPlayerInfo,
-  editPlayerInfoTheMatch,
-  editRunBall,
-  getPlayerInfo,
-} from "./addRunBallUtility";
+import { getPlayerInfo } from "./addRunBallUtility";
 import { addRunBallCloudFunction } from "./addRunBallCloudFunction";
 import { useRouter } from "next/navigation";
 import { getSchedule } from "../scooringUtility";
@@ -22,6 +17,8 @@ export default function AddRunBall({
   const [boundary, setBoundary] = useState("");
   const [playersProfile, setPlayersProfile] = useState("");
   const [scheduls, setScheduls] = useState([]);
+  const [freeHit, setFreeHit] = useState(false);
+  console.log(addBall);
 
   const router = useRouter();
   useEffect(
@@ -47,6 +44,7 @@ export default function AddRunBall({
     playerId,
     ballingToday,
     considRunToday,
+    freeHitBall,
   } = onBallingBaller || [];
 
   const onStricker = batterThisMatch.filter((plr) => plr.onStricke == true)[0];
@@ -79,11 +77,22 @@ export default function AddRunBall({
       schedule,
       scheduleId,
       boundary,
+      freeHitBall,
     });
+    setStatus(false);
+    if (
+      addBall == "noBall" ||
+      addBall == "noBallWithByRun" ||
+      addBall == "noBallWithBatRun"
+    ) {
+      setFreeHit(true);
+    } else if (freeHitBall) {
+      setFreeHit(false);
+    }
+
     setAddBall("");
     setAddRun(0);
     router.refresh();
-    setStatus(false);
   };
   const buttonHandler = () => {
     setStatus(true);
@@ -117,7 +126,7 @@ export default function AddRunBall({
             </select>
           </div>
           <div className="">
-            <label className="block">Boundary's**</label>
+            <label className="block">Boundary&lsquo;s**</label>
             <select
               value={boundary}
               onChange={(e) => setBoundary(e.target.value)}
@@ -130,24 +139,35 @@ export default function AddRunBall({
           </div>
           <div className="">
             <label className="block">Add Ball**</label>
-            <select
-              value={addBall}
-              onChange={(e) => setAddBall(e.target.value)}
-              className="m-1 w-[80%] rounded p-1"
-              required
-            >
-              <option value={""}>choose One</option>
-              <option value={"rightBall"}>Right Ball</option>
-              <option value={"byRunRightBall"}>By Run (Right Ball)</option>
-              <option value={"wd"}>WD Ball</option>
-              <option value={"wdWithBy"}>WD Ball And By Run</option>
-              <option value={"noBall"}>No Ball</option>
-              <option value={"noBallWithByRun"}>No Ball And BY Run</option>
-              <option value={"noBallWithBatRun"}>
-                No Ball And Run From Bat
-              </option>
-              <option value={"legBy"}>Leg By Run</option>
-            </select>
+            {freeHitBall ? (
+              <select
+                value={addBall}
+                onChange={(e) => setAddBall(e.target.value)}
+                className="m-1 w-[80%] rounded p-1"
+                required
+              >
+                <option value={""}>choose One</option>
+                <option value={"freeHit"}>Free Hit Ball</option>
+              </select>
+            ) : (
+              <select
+                value={addBall}
+                onChange={(e) => setAddBall(e.target.value)}
+                className="m-1 w-[80%] rounded p-1"
+                required
+              >
+                <option value={""}>choose One</option>
+                <option value={"rightBall"}>Right Ball</option>
+                <option value={"byRunRightBall"}>By Run (Right Ball)</option>
+                <option value={"wd"}>WD Ball</option>
+                <option value={"wdWithBy"}>WD Ball And By Run</option>
+                <option value={"noBall"}>No Ball</option>
+                <option value={"noBallWithBatRun"}>
+                  No Ball And Run From Bat
+                </option>
+                <option value={"noBallWithByRun"}>No Ball And BY Run</option>
+              </select>
+            )}
           </div>
           <div className="w-[20%] m-auto">
             <input

@@ -30,6 +30,7 @@ model player{
   id BigInt @id @default(autoincrement()) @db.UnsignedBigInt
   teamId BigInt @db.UnsignedBigInt
   team team @relation(fields: [teamId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  profileImage String
   name String @db.VarChar(100)
   roll String @db.VarChar(100)
   battingStyle String @db.VarChar(100)
@@ -93,6 +94,7 @@ model indevisualPlayingRecords{
   six Int @default(0)
   onBalling Boolean @default(false)
   totalBall Int @default(0)
+  freeHitBall Boolean @default(false)
   considRunToday Int @default(0)
   playerRunToday Int @default(0)
   playedBallToday Int @default(0)
