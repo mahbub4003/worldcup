@@ -51,7 +51,7 @@ export default async function page({ params }) {
     .filter((player) => player.scheduleId == params.id)
     .filter((player) => player.teamId == ballerTeamId);
 
-  // search total run and total ball dynamically / conditionally by innings...
+  // search total run and total ball dynamically / conditionally by innings....
   const totalRun =
     innings == "first" ? totalRunBatFistTeam : totalRunBatSecondTeam;
   const totalBall = innings == "first" ? overFirstBallTeam : overSecondBallTeam;
