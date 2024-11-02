@@ -1,4 +1,6 @@
 import Link from "next/link";
+
+// get all team from database...
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/teamList", {
     cache: "no-store",
@@ -10,6 +12,7 @@ const getData = async () => {
   return data;
 };
 export default async function TeamList() {
+  // store all team data in teamlist constant...
   const teamlist = await getData();
   return (
     <div className="bg-gray-300 p-5 w-[80%] m-auto mt-5">

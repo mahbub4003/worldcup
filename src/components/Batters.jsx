@@ -16,7 +16,10 @@ export default function BattingOnCrease({ player }) {
       <td className="p-2 sm:p-3">{player.six}</td>
       <td className="p-2 sm:p-3">
         {player.totalRun > 0
-          ? (parseInt(player.totalRun) / parseInt(player.playedBall)) * 100
+          ? (
+              (parseInt(player.totalRun) / parseInt(player.playedBall)) *
+              100
+            ).toFixed(2)
           : "00"}
       </td>
     </tr>

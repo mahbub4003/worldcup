@@ -1,3 +1,4 @@
+// get all team data functionality bellow..
 const postData = async (data) => {
   try {
     const res = await fetch("http://localhost:3000/api/teamList", {

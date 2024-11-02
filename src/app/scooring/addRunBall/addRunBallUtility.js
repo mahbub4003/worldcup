@@ -1,3 +1,4 @@
+// update players information current game only..
 export const editPlayerInfoTheMatch = async ({ data, id }) => {
   try {
     const res = await fetch(
@@ -12,6 +13,7 @@ export const editPlayerInfoTheMatch = async ({ data, id }) => {
   }
 };
 
+// update players information in main profile data only...
 export const editPlayerInfo = async ({ data, id }) => {
   try {
     const res = await fetch(`http://localhost:3000/api/players?id=${id}`, {
@@ -23,6 +25,7 @@ export const editPlayerInfo = async ({ data, id }) => {
   }
 };
 
+// get players information in main profile data from server...
 export const getPlayerInfo = async () => {
   try {
     const res = await fetch(`http://localhost:3000/api/players`, {
@@ -35,6 +38,7 @@ export const getPlayerInfo = async () => {
   }
 };
 
+//update schedule data by ID in server
 export const editScheduleInfo = async ({ data, id }) => {
   try {
     const res = await fetch(`http://localhost:3000/api/schedule?id=${id}`, {

@@ -1,3 +1,4 @@
+// post player functionality from here..
 export const addPlayerInfo = async (data) => {
   try {
     const res = await fetch("http://localhost:3000/api/players", {
@@ -9,6 +10,7 @@ export const addPlayerInfo = async (data) => {
   }
 };
 
+// get team functionality from here..
 export const getTeam = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/teamList", {

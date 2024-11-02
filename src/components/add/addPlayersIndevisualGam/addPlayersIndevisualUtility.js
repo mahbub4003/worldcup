@@ -1,3 +1,4 @@
+// add players functionality for current game as playing eleven...
 export const addPlayersIndevisualGameInfo = async (data) => {
   try {
     const res = await fetch("http://localhost:3000/api/playingProfile", {
@@ -9,6 +10,7 @@ export const addPlayersIndevisualGameInfo = async (data) => {
   }
 };
 
+//  get current game's players information functionality bellow..
 export const getPlayersIndevisualGameInfo = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/playingProfile", {
@@ -23,6 +25,7 @@ export const getPlayersIndevisualGameInfo = async () => {
   return await getDta();
 };
 
+// get schedule data functionality bellow...
 export const getschedule = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/schedule", {
@@ -37,6 +40,7 @@ export const getschedule = async () => {
   return await getDta();
 };
 
+// get all team's data functionality bellow...
 export const getTeams = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/teamList", {
@@ -51,6 +55,7 @@ export const getTeams = async () => {
   return await getDta();
 };
 
+// get all player's data functionality bellow...
 export const getPlayers = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/players", {

@@ -23,7 +23,7 @@ export default function BallersThisMatch({ player }) {
       <td className="p-2 sm:p-3">{player?.wicketToday}</td>
       <td className="p-2 sm:p-3">
         {player?.considRunToday
-          ? (player?.considRunToday / player?.ballingToday) * 6
+          ? ((player?.considRunToday / player?.ballingToday) * 6).toFixed(2)
           : "0.00"}
       </td>
     </tr>

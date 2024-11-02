@@ -20,11 +20,18 @@ const getTeam = async () => {
 };
 
 export default async function page({ params }) {
+  // store all players data in teamPlayers constant from server...
   const teamPlayers = await getData();
+
+  // store all teams data in teamPlayers constant from server...
   const teamList = await getTeam();
+
+  //  filter players data by team ID and params.id
   const filteredPlayers = teamPlayers.data?.filter(
     (player) => player.teamId == params.id
   );
+
+  //  filter team data by team ID and params.id
   const singleTeam = teamList.data?.filter((team) => team.id == params.id);
 
   return (

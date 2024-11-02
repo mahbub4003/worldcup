@@ -25,27 +25,33 @@ export default async function page({ params }) {
     totalRunBatFistTeam,
     totalRunBatSecondTeam,
   } = schedule;
-  const findBatterTeamName = innings === "first" ? batFirst : ballFirst;
-  const findBallerTeam = innings === "first" ? ballFirst : batFirst;
-  const allTeam = await getTeam();
 
+  // search batting team name dynamically by innings
+  const findBatterTeamName = innings === "first" ? batFirst : ballFirst;
+
+  // search batting team ID dynamically by innings
   let batterTeamId;
   if (innings === "first") {
     batterTeamId = batFirstTeamId;
   } else if (innings === "second") {
     batterTeamId = batSecondTeamId;
   }
+
+  // search baller team ID dynamically by innings
   const ballerTeamId = innings === "first" ? batSecondTeamId : batFirstTeamId;
 
+  // search batter onCrease, filtering by schedule Id, team Id and onCrease=true...
   const batterThisMatch = players?.data
     .filter((player) => player.scheduleId == params.id)
     .filter((player) => player.teamId == batterTeamId)
     .filter((plr) => plr.onCrease === true);
 
+  // search baller filtering by schedule Id and team Id...
   const ballerTheMatch = players?.data
     .filter((player) => player.scheduleId == params.id)
     .filter((player) => player.teamId == ballerTeamId);
 
+  // search total run and total ball dynamically / conditionally by innings...
   const totalRun =
     innings == "first" ? totalRunBatFistTeam : totalRunBatSecondTeam;
   const totalBall = innings == "first" ? overFirstBallTeam : overSecondBallTeam;

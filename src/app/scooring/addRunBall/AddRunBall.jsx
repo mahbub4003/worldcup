@@ -19,23 +19,27 @@ export default function AddRunBall({
   const [scheduls, setScheduls] = useState([]);
   const [freeHit, setFreeHit] = useState(false);
   console.log(addBall);
-
+  // use router hook
   const router = useRouter();
+
+  // useEffect hook...
   useEffect(
     () => async () => {
+      // store all players profile data in platersProfile constant, and re-set data in setPlayersProfile
       const playersProfile = await getPlayerInfo();
       setPlayersProfile(playersProfile);
 
+      // store all schedule data in schedule constant, and re-set data in setCchedule
       const schedules = await getSchedule();
       setScheduls(schedules);
     },
     []
   );
+
+  // filter schedule data by schedule id...
   const schedule = scheduls?.data?.filter((sdl) => sdl.id == scheduleId)[0];
 
-  const striker = batterThisMatch.filter((plr) => plr.onStricke == true)[0];
-  const nonStriker = batterThisMatch.filter((plr) => plr.onStricke != true)[0];
-
+  // search baller filtering by onn=Balleng=true
   const onBallingBaller = ballerTheMatch.filter(
     (plr) => plr.onBalling == true
   )[0];
@@ -47,19 +51,25 @@ export default function AddRunBall({
     freeHitBall,
   } = onBallingBaller || [];
 
+  // search onStricker and nonStricker from batter this match by onSticke=true or false
   const onStricker = batterThisMatch.filter((plr) => plr.onStricke == true)[0];
   const nonStricker = batterThisMatch.filter((plr) => plr.onStricke != true)[0];
 
+  // search main profie onStricker and nonStricker from batter this match by filtering by player ID
   const onStrickerMainProfile = playersProfile?.data?.filter(
     (plr) => plr.id == onStricker?.playerId
   )[0];
   const nonStrickerMainProfile = playersProfile?.data?.filter(
     (plr) => plr.id == nonStricker?.playerId
   )[0];
+
+  // search main profie current baller from baller this match by filtering by player ID
+
   const bollerMainProfile = playersProfile?.data?.filter(
     (plr) => plr.id == playerId
   )[0];
 
+  // form submit handler start from here...
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -94,14 +104,12 @@ export default function AddRunBall({
     setAddRun(0);
     router.refresh();
   };
-  const buttonHandler = () => {
-    setStatus(true);
-  };
+  // form submit handler end here...
 
   return (
     <div>
       {!status && (
-        <button className="bg-green-400 p-2" onClick={buttonHandler}>
+        <button className="bg-green-400 p-2" onClick={(e) => setStatus(true)}>
           Add Run and Ball
         </button>
       )}

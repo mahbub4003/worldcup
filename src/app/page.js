@@ -1,7 +1,6 @@
-import DateTimeChecker from "@/components/DateTimeChecker";
 import Schedules from "@/components/Schedules";
-import Link from "next/link";
 
+// get all schedule data from database...
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/schedule", {
     cache: "no-store",
@@ -11,8 +10,8 @@ const getData = async () => {
 };
 
 export default async function Home() {
+  // store all schadule data in schedules constant...
   const schedules = await getData();
-  const date = new Date();
   return (
     <main className="m-5">
       <div className="flex flex-wrap">

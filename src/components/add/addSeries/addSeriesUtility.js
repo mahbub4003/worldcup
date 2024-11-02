@@ -1,3 +1,4 @@
+// post seties data functionality bellow
 export const postData = async (data) => {
   try {
     const res = await fetch("http://localhost:3000/api/series", {
@@ -9,6 +10,7 @@ export const postData = async (data) => {
   }
 };
 
+// get all team data functionality bellow..
 export const getTeam = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/teamList", {
