@@ -16,12 +16,6 @@ export default function page({ params }) {
             Add Batter Or Baller
           </Link>
         </div>
-        <div className="flex-1">
-          <Link href={"/add/addSchedule"}>Add Schedule</Link>
-        </div>
-        <div className="flex-1">
-          <Link href={"/add/addSeries"}>Add Series</Link>
-        </div>
       </div>
     </div>
   );

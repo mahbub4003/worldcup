@@ -11,8 +11,11 @@ export default function AddTeam() {
   const [achiveRun, setachiveRun] = useState(0);
   const [givingRun, setgivingRun] = useState(0);
 
+  // form submit handler bellow..
+
   const submitHandler = (e) => {
     e.preventDefault();
+    // cloud oparation for add new team name and essential data....
     postData(
       JSON.stringify({
         teamName,

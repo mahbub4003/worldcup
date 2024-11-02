@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+// get all schedule data from sever...
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/schedule", {
     cache: "no-store",
@@ -7,6 +8,8 @@ const getData = async () => {
   const data = await res.json();
   return data;
 };
+
+// get all team data from server...
 const getTeamList = async () => {
   const res = await fetch("http://localhost:3000/api/teamList", {
     cache: "no-store",
@@ -15,6 +18,7 @@ const getTeamList = async () => {
   return data;
 };
 
+// get playing profile from server...
 const playingProfile = async () => {
   const res = await fetch("http://localhost:3000/api/playingProfile", {
     cache: "no-store",
@@ -24,7 +28,9 @@ const playingProfile = async () => {
 };
 
 export default async function page({ params }) {
+  //store all schedule data in constant schedule and filter by id .... then
   const schedules = await getData();
+
   const schedule = schedules.data.filter((sdl) => sdl.id == params.id);
   const { teamNameVs, vsTeamName, tossWinTeam, chooseTo, matchNo } =
     schedule[0];
@@ -54,11 +60,7 @@ export default async function page({ params }) {
       <div>
         <div>
           <h2 className="underline font-bold">**Information....</h2>
-          <div className="w-[100%] text-center">
-            {/* <h1 className="underline">
-              {teamNameVs} <span className="text-red-500">VS</span> {vsTeamName}
-            </h1> */}
-          </div>
+          <div className="w-[100%] text-center"></div>
         </div>
       </div>
       <div>

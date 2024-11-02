@@ -18,6 +18,8 @@ export default function AddTeam({ header }) {
   const [day, setDay] = useState(null);
   const [vsTeamNameError, setVsTeamNameError] = useState(false);
 
+  //useEffect hook get all teams and all available series data & set data in useState
+
   useEffect(
     () => async () => {
       const team = await getTeam();
@@ -27,13 +29,13 @@ export default function AddTeam({ header }) {
     },
     []
   );
-  const no = parseInt(matchNo);
+
+  //form submit handler start from here...
   const submitHandler = (e) => {
     e.preventDefault();
 
     // Parse the original format
     const dat = new Date(date);
-    // setDate(dat.getDay());
 
     // Desired format
     const options = {
@@ -44,8 +46,7 @@ export default function AddTeam({ header }) {
       minute: "numeric",
       hour12: true,
     };
-    //set Date and Time in useState variable
-    // setdesiredFormat(dat.toLocaleString("en-US", options));
+    // post scheduele data with some conditons bellow
 
     if (teamNameVs == vsTeamName) {
       setVsTeamNameError(true);
@@ -59,7 +60,7 @@ export default function AddTeam({ header }) {
           matchNo,
           tossWinTeam,
           chooseTo,
-          matchNo: no,
+          matchNo: parseInt(matchNo),
           date,
           shirisName,
         })
@@ -70,9 +71,8 @@ export default function AddTeam({ header }) {
     }
   };
 
-  const vsTeamOnChangeHandler = (e) => {
-    setvsTeamName(e.target.value);
-  };
+  //condition bellow visible Eror data..
+
   const error =
     teamNameVs == vsTeamName ? (
       <p className="text-red-500">
@@ -128,7 +128,7 @@ export default function AddTeam({ header }) {
           <select
             className="m-1 w-[80%] rounded p-1"
             value={vsTeamName}
-            onChange={vsTeamOnChangeHandler}
+            onChange={(e) => setvsTeamName(e.target.value)}
             required
           >
             <option value={""}>Choose Team Name</option>;

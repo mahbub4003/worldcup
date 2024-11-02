@@ -22,26 +22,34 @@ export default function Toss({ params }) {
 
   useEffect(
     () => async () => {
+      // store schedules data in schedule constant & set value in setDchedule useState
       const schedule = await getSchedule();
       setSchedule(schedule);
+
+      // store players running game's data in playersInfoForSingaleInings constant & set value in setPlayersInfoForSingaleInings useState
+
       const playersInfoForSingaleInings = await getPlayingProfile();
       setPlayersInfoForSingaleInings(playersInfoForSingaleInings.data);
     },
     [activeTeamId, update, innings]
   );
 
+  // filter schedul by id in params...
   const singleSchedule =
     schedule && schedule.data?.filter((sdl) => sdl.id == params.id)[0];
 
+  // store batFirst teame id in stringInnings constant & parse in string at a time
   const stringInnings =
     singleSchedule && JSON.stringify(singleSchedule?.batFirstTeamId);
 
+  // filter players running game player's & Separate tow teams player donamically
   const playersListForSingaleTeam =
     playersInfoForSingaleInings &&
     playersInfoForSingaleInings
       .filter((plr) => plr.scheduleId === params.id)
       .filter((plr) => plr.teamId == activeTeamId);
 
+  // search batting team and balling team by batting team id, balling team id and innings with conditionally  start from here,,...
   let filteredPlayersListForSingaleTeam;
   if (
     activeTeamId == singleSchedule?.batFirstTeamId &&
@@ -70,20 +78,22 @@ export default function Toss({ params }) {
       playersListForSingaleTeam &&
       playersListForSingaleTeam?.filter((plr) => plr.batting != true);
   }
+  // search batting team and balling team by batting team id, balling team id and innings with conditionally  end here,,...
 
+  // filter player running game by player id
   const filteredPlayer =
     filteredPlayersListForSingaleTeam &&
     filteredPlayersListForSingaleTeam?.filter(
       (plr) => plr.playerId == activePlayerId
     )[0];
-
+  //search batter by scheduel Id, team Id and onCrease= true
   const battersOnCrease =
     playersInfoForSingaleInings &&
     playersInfoForSingaleInings
       .filter((plr) => plr.scheduleId === params.id)
       .filter((plr) => plr.teamId == innings)
       .filter((plr) => plr.onCrease == true);
-
+  //search striker by scheduel Id, team Id and onStricke= true
   const battersOnStricke =
     playersInfoForSingaleInings &&
     playersInfoForSingaleInings
@@ -91,6 +101,7 @@ export default function Toss({ params }) {
       .filter((plr) => plr.teamId == innings)
       .filter((plr) => plr.onStricke == true);
 
+  //form submit handler start from here...
   const submitHandler = (e) => {
     e.preventDefault();
     if (
@@ -171,7 +182,9 @@ export default function Toss({ params }) {
     }
     setUpdate(filteredPlayer?.id);
   };
+  //form submit handler end here...
 
+  //set button value dynamically
   let buttonValue;
   if (activeTeamId == singleSchedule?.batFirstTeamId) {
     buttonValue = "Add Batter";

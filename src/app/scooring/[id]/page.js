@@ -5,7 +5,10 @@ import AddRunBall from "../addRunBall/AddRunBall";
 import ReplaceBaller from "./addInformationSchedule/addBallerOrBatter/ReplaceBaller";
 
 export default async function page({ params }) {
+  // store player data in players constant
   const players = await getData();
+
+  // store schedule data in schedules constant and filter by id and params id..
   const schedules = await getSchedule();
   const schedule = schedules.data?.filter((schdl) => schdl.id == params.id)[0];
   const {
@@ -25,13 +28,6 @@ export default async function page({ params }) {
   const findBatterTeamName = innings === "first" ? batFirst : ballFirst;
   const findBallerTeam = innings === "first" ? ballFirst : batFirst;
   const allTeam = await getTeam();
-  // const batterTeam = allTeam.data?.filter(
-  //   (team) => team.teamName == findBatterTeamName
-  // )[0];
-
-  // const ballFirstTeam = allTeam.data?.filter(
-  //   (team) => team.teamName == findBallerTeam
-  // )[0];
 
   let batterTeamId;
   if (innings === "first") {
@@ -78,13 +74,17 @@ export default async function page({ params }) {
 
                 <tr className="border-collapse ">
                   <td className="pt-2 ">
-                    {totalRun > 0 ? (totalRun / totalBall) * 6 : "0.00"}
+                    {totalRun > 0
+                      ? ((totalRun / totalBall) * 6).toFixed(2)
+                      : "0.00"}
                   </td>
                   {innings == "second" && (
                     <td className="pt-2 ">
-                      {((totalRunBatFistTeam - totalRunBatSecondTeam) /
-                        (20 - overSecondBallTeam)) *
-                        6}
+                      {(
+                        ((totalRunBatFistTeam - totalRunBatSecondTeam) /
+                          (20 - overSecondBallTeam)) *
+                        6
+                      ).toFixed(2)}
                     </td>
                   )}
                 </tr>

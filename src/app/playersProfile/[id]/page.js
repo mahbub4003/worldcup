@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+// get players data from survar.....
 const getData = async () => {
   const res = await fetch("http://localhost:3000/api/players", {
     cache: "no-store",
@@ -11,6 +11,7 @@ const getData = async () => {
   return data;
 };
 
+// get all teams data from survar.....
 const getTeam = async () => {
   const res = await fetch("http://localhost:3000/api/teamList", {
     cache: "no-store",
@@ -23,7 +24,10 @@ const getTeam = async () => {
 };
 
 export default async function players({ params }) {
+  // store all players data in a variable
   const allPlayerProfile = await getData();
+
+  // store all teams data in a variable
   const teamList = await getTeam();
 
   const selectedPlayerProfile = allPlayerProfile.data.filter(

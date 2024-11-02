@@ -13,6 +13,7 @@ export default function Toss({ params }) {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // store all schedule data in schedule constant and setSchedule useState in useEffect hook
   useEffect(
     () => async () => {
       const schedule = await getSchedule();
@@ -21,8 +22,11 @@ export default function Toss({ params }) {
     [chooseTo, tossLossTeam, tossWinTeam]
   );
 
+  // filter schedule by schdule id and params id...targeted schedule..
   const singleSchedule =
     schedule && schedule.data?.filter((sdl) => sdl.id == params.id)[0];
+
+  // search batter team and baller team conditionally...start from here..
   let bat;
   let ball;
 
@@ -42,6 +46,10 @@ export default function Toss({ params }) {
     bat = singleSchedule?.teamNameVs;
     ball = singleSchedule?.vsTeamName;
   }
+
+  // search batter team and baller team conditionally...end here..
+
+  //form submit handler bellow....
 
   const submitHandler = (e) => {
     e.preventDefault();

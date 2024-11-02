@@ -8,6 +8,7 @@ export default function RootLayout({ children }) {
   return (
     <html className="bg-gray-400" lang="en">
       <body>
+        {/* main manu bar from bellow */}
         <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded my-2">
           <div className="flex w-[80%] m-auto ">
             <div className="flex-1">

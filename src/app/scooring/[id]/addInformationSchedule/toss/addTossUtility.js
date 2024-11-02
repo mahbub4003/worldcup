@@ -1,3 +1,5 @@
+// update schedule data by id....
+
 export const postData = async ({ data, id }) => {
   try {
     const res = await fetch(`http://localhost:3000/api/schedule?id=${id}`, {
@@ -9,6 +11,7 @@ export const postData = async ({ data, id }) => {
   }
 };
 
+// get schedule data from surver..
 export const getSchedule = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/schedule", {

@@ -100,7 +100,6 @@ export default function AddPlayersIndevisualGame({ id }) {
       setPlayerAddSuccess(true);
     }
   };
-  console.log(filteredTeamId.length);
 
   return (
     <div>

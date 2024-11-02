@@ -2,7 +2,6 @@ import AddSeries from "@/components/add/addSeries/AddSeries";
 import { headers } from "next/headers";
 export default async function page() {
   const header = headers().get("fail");
-  // const errorHeader = header.has("addteamerror");
 
   return (
     <div className="sm:w-[50%] w-[80%] m-auto bg-slate-300 p-4 rounded">

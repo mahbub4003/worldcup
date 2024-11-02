@@ -5,10 +5,10 @@ import { postData, getTeam } from "./addSeriesUtility";
 
 export default function AddSeries({ header }) {
   const [series, setSeries] = useState("");
-
+  // form submit handler bellow
   const submitHandler = (e) => {
     e.preventDefault();
-
+    // cloud oparation for add new series name
     postData(
       JSON.stringify({
         name: series,

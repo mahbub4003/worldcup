@@ -1,3 +1,5 @@
+// update functionality player's running playing data
+
 export const postData = async ({ data, id }) => {
   try {
     const res = await fetch(
@@ -12,6 +14,7 @@ export const postData = async ({ data, id }) => {
   }
 };
 
+// get schedules data functionality......
 export const getSchedule = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/schedule", {
@@ -25,7 +28,7 @@ export const getSchedule = async () => {
   }
   return await getDta();
 };
-
+// get functionality all player's running playing data
 export const getPlayingProfile = async () => {
   async function getDta() {
     const res = await fetch("http://localhost:3000/api/playingProfile", {

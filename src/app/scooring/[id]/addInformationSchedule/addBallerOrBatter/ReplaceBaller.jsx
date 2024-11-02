@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getPlayingProfile } from "./addBallerOrBatterUtility";
-import {
-  editPlayerInfo,
-  editPlayerInfoTheMatch,
-} from "@/app/scooring/addRunBall/addRunBallUtility";
+import { editPlayerInfoTheMatch } from "@/app/scooring/addRunBall/addRunBallUtility";
 import { useRouter } from "next/navigation";
 
 export default function ReplaceBaller({ ballerTheMatch }) {

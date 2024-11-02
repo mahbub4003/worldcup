@@ -10,7 +10,7 @@ export default function AddPlayer() {
   const [battingStyle, setBattingStyle] = useState("");
   const [ballingStyle, setBallingStyle] = useState("");
   const [roll, setRoll] = useState("");
-  // Below Hooks  initialy 0 run m/b........
+  // Below Hooks value initialy 0 ........
   const [totalRun, setTotalRun] = useState(0);
   const [four, setFoue] = useState(0);
   const [six, setSix] = useState(0);
@@ -23,6 +23,8 @@ export default function AddPlayer() {
   const [evarage, setevarage] = useState(0);
   const [bbi, setbbi] = useState("0/0");
 
+  // below useEffect hook for get all teams data and set data in allTeam useState
+
   useEffect(
     () => async () => {
       const team = await getTeam();
@@ -31,8 +33,12 @@ export default function AddPlayer() {
     []
   );
 
+  //form submit handler bellow
+
   const submitHandler = (e) => {
     e.preventDefault();
+
+    // cloud oparation for add players
 
     addPlayerInfo(
       JSON.stringify({
